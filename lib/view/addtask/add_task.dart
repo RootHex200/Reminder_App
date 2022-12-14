@@ -11,7 +11,6 @@ class AddTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var service = IsarService();
     return Scaffold(
         body: SingleChildScrollView(
       child: Column(

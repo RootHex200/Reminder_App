@@ -24,14 +24,12 @@ class TaskNotifier extends StateNotifier<UserInput> {
             colorindex: 0,
             endtime: ''));
   Timer? _debounce;
+
   onSearchChanged(value, type) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {
       if (type == "note") {
         state = state.copyWith(desc: value.toString());
-
-        print(value);
-        print(state);
       }
       if (type == 'title') {
         state = state.copyWith(title: value.toString());
@@ -51,6 +49,14 @@ class TaskNotifier extends StateNotifier<UserInput> {
           startTime: state.starttime);
       try {
         Isolate.spawn(createTask, task);
+        state = UserInput(
+            title: '',
+            desc: '',
+            date: '',
+            color: '',
+            starttime: '',
+            colorindex: 0,
+            endtime: '');
       } catch (e) {
         print("E$e");
       }

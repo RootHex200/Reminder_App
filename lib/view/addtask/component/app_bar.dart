@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:work_manager/view/homepage/home_page.dart';
 
 class AddTaskAppBar extends StatelessWidget {
@@ -17,8 +14,8 @@ class AddTaskAppBar extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const HomePage()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) =>const HomePage()));
               },
               child: const Icon(
                 Icons.arrow_back_ios,

@@ -11,10 +11,7 @@ class TaskView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final task_Data = ref.watch(getTaskProvider);
-    return task_Data.when(
-      loading: ()=>const Center(child: CircularProgressIndicator(color: Colors.blue),),
-      error: (error, stackTrace) => const Error(),
-      data:(data)=> Expanded(
+    return Expanded(
           child: Container(
             width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
@@ -22,17 +19,21 @@ class TaskView extends ConsumerWidget {
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30), topRight: Radius.circular(30))),
         // ignore: prefer_is_empty
-        child:data.length==0?const EmptyTask(): ListView.builder(
-            itemCount: data.length,
-            shrinkWrap: true,
-            primary: false,
-            itemBuilder: (context, index) {
-              return  Dismissible(
-                key: UniqueKey(),
-                
-                child: TaskItem(Data:data[index]));
-            }), 
-      )),
+        child:task_Data.when(
+                loading: ()=>const Center(child: CircularProgressIndicator(color: Colors.blue),),
+      error: (error, stackTrace) => const Error(),
+          data:(data)=>data.length==0?const EmptyTask(): ListView.builder(
+              itemCount: data.length,
+              shrinkWrap: true,
+              primary: false,
+              itemBuilder: (context, index) {
+                return  Dismissible(
+                  key: UniqueKey(),
+                  
+                  child: TaskItem(Data:data[index]));
+              }),
+        ), 
+      ),
     );
   }
 }

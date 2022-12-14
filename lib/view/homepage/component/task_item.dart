@@ -1,6 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:work_manager/model/notification_model.dart';
 import 'package:work_manager/model/task_model.dart';
+import 'package:work_manager/service/notification_service.dart';
 
 class TaskItem extends StatelessWidget {
   final TaskModel Data;
@@ -9,7 +13,13 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = Data.colors.split(" ").last.split(")")[0].split("(").last;
-
+    var notifaction = NotificationModel(
+        id:Data.id as int ,
+        title: Data.title,
+        desc: Data.description,
+        date: Data.date,
+        startTime: Data.startTime);
+    NotificationClass().sendNotification(notifaction);
     final main_color = color == "0xfff44336"
         ? 0xfff44336
         : color == "0xffffeb3b"
@@ -24,7 +34,7 @@ class TaskItem extends StatelessWidget {
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Column(
-             mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Row(
                 children: [

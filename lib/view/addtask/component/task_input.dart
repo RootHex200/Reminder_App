@@ -1,5 +1,3 @@
-
-
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,22 +16,30 @@ class TaskInput extends ConsumerStatefulWidget {
 class _TaskInputState extends ConsumerState<TaskInput> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
+  final TextEditingController _datacontroller = TextEditingController();
+  final TextEditingController _startTimecontroller = TextEditingController();
+  final TextEditingController _endtimecontroller = TextEditingController();
 
   @override
   void dispose() {
     _titleController.dispose();
     _noteController.dispose();
+    _datacontroller.dispose();
+    _startTimecontroller.dispose();
+    _endtimecontroller.dispose();
+    print("ondispose call");
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final add_task = ref.watch(createTaskProvider);
+    print(add_task);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-         mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.min,
         children: [
           //title
           const TaskInputTextName(txt: 'Title'),
@@ -41,7 +47,7 @@ class _TaskInputState extends ConsumerState<TaskInput> {
             height: 5,
           ),
           TextField(
-            // controller: _titleController,
+            controller: _titleController,
             onChanged: (value) {
               ref
                   .read(createTaskProvider.notifier)
@@ -67,7 +73,7 @@ class _TaskInputState extends ConsumerState<TaskInput> {
             height: 5,
           ),
           TextField(
-            // controller: _noteController,
+            controller: _noteController,
             onChanged: (value) {
               ref
                   .read(createTaskProvider.notifier)
@@ -93,7 +99,8 @@ class _TaskInputState extends ConsumerState<TaskInput> {
 
           //data
           DateTimePicker(
-            initialValue: '',
+            controller: _datacontroller,
+            // initialValue:"Date",
             firstDate: DateTime(2000),
             lastDate: DateTime(2100),
             icon: const Icon(Icons.calendar_month),
@@ -125,8 +132,9 @@ class _TaskInputState extends ConsumerState<TaskInput> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 2 - 20,
                       child: DateTimePicker(
+                        controller: _startTimecontroller,
                         type: DateTimePickerType.time,
-                        initialValue: "",
+                        // initialValue: "Start Time",
                         use24HourFormat: true,
                         icon: const Icon(CupertinoIcons.clock),
                         timeFieldWidth: 50,
@@ -151,8 +159,9 @@ class _TaskInputState extends ConsumerState<TaskInput> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 2 - 20,
                       child: DateTimePicker(
+                        controller: _endtimecontroller,
                         type: DateTimePickerType.time,
-                        initialValue: "",
+                        // initialValue: "End Time",
                         use24HourFormat: true,
                         icon: const Icon(CupertinoIcons.clock),
                         timeFieldWidth: 50,
@@ -209,6 +218,11 @@ class _TaskInputState extends ConsumerState<TaskInput> {
               InkWell(
                 onTap: () {
                   ref.read(createTaskProvider.notifier).createUserTask();
+                  _titleController.text = "";
+                  _noteController.text = "";
+                  _datacontroller.text = "";
+                  _startTimecontroller.text = "";
+                  _endtimecontroller.text = "";
                 },
                 child: Container(
                   height: 50,
