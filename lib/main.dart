@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:work_manager/service/notification_service.dart';
 import 'package:work_manager/view/homepage/home_page.dart';
 
 
@@ -7,6 +8,7 @@ import 'package:work_manager/view/homepage/home_page.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
+  NotificationClass().initiallizationPlatform();
   runApp( const ProviderScope(child: MyApp()));
 }
 
