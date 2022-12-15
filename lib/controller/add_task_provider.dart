@@ -5,7 +5,9 @@ import 'dart:isolate';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:work_manager/database/database.dart';
+import 'package:work_manager/model/notification_model.dart';
 import 'package:work_manager/model/task_model.dart';
+import 'package:work_manager/service/notification_service.dart';
 import 'package:work_manager/util/colors_list.dart';
 
 final createTaskProvider =
@@ -24,7 +26,7 @@ class TaskNotifier extends StateNotifier<UserInput> {
             colorindex: 0,
             endtime: ''));
   Timer? _debounce;
-
+  int notiID = 0;
   onSearchChanged(value, type) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {
@@ -49,6 +51,13 @@ class TaskNotifier extends StateNotifier<UserInput> {
           startTime: state.starttime);
       try {
         Isolate.spawn(createTask, task);
+        var notification = NotificationModel(
+            id: notiID++,
+            title: state.title,
+            desc: state.desc,
+            date: state.date,
+            startTime: state.starttime);
+        NotificationClass().sendNotification(notification);
         state = UserInput(
             title: '',
             desc: '',

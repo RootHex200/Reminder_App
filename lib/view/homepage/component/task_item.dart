@@ -13,13 +13,6 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = Data.colors.split(" ").last.split(")")[0].split("(").last;
-    var notifaction = NotificationModel(
-        id:Data.id as int ,
-        title: Data.title,
-        desc: Data.description,
-        date: Data.date,
-        startTime: Data.startTime);
-    NotificationClass().sendNotification(notifaction);
     final main_color = color == "0xfff44336"
         ? 0xfff44336
         : color == "0xffffeb3b"
