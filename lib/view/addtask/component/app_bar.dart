@@ -14,8 +14,9 @@ class AddTaskAppBar extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) =>const HomePage()));
+                Navigator.pushAndRemoveUntil(
+                    context, MaterialPageRoute(builder: (context)=>const HomePage()), (route) => false);
+              
               },
               child: const Icon(
                 Icons.arrow_back_ios,

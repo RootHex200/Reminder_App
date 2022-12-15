@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:work_manager/controller/add_task_provider.dart';
 import 'package:work_manager/util/colors_list.dart';
 import 'package:work_manager/util/widgets/textStyle.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:work_manager/view/addtask/component/custom_date_picker.dart';
 
 class TaskInput extends ConsumerStatefulWidget {
   const TaskInput({super.key});
@@ -21,6 +23,12 @@ class _TaskInputState extends ConsumerState<TaskInput> {
   final TextEditingController _endtimecontroller = TextEditingController();
 
   @override
+  void initState() {
+    initializeDateFormatting("en_BD");
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _titleController.dispose();
     _noteController.dispose();
@@ -34,7 +42,6 @@ class _TaskInputState extends ConsumerState<TaskInput> {
   @override
   Widget build(BuildContext context) {
     final add_task = ref.watch(createTaskProvider);
-    print(add_task);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
@@ -107,8 +114,10 @@ class _TaskInputState extends ConsumerState<TaskInput> {
             cursorColor: Colors.black,
             dateLabelText: 'Date',
             onChanged: (val) {
+              // ignore: invalid_use_of_protected_member
               ref.read(createTaskProvider.notifier).state = ref
                   .read(createTaskProvider.notifier)
+                  // ignore: invalid_use_of_protected_member
                   .state
                   .copyWith(date: val.toString());
             },
@@ -131,21 +140,16 @@ class _TaskInputState extends ConsumerState<TaskInput> {
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 2 - 20,
-                      child: DateTimePicker(
-                        controller: _startTimecontroller,
-                        type: DateTimePickerType.time,
-                        // initialValue: "Start Time",
-                        use24HourFormat: true,
-                        icon: const Icon(CupertinoIcons.clock),
-                        timeFieldWidth: 50,
-                        dateLabelText: 'Start Time',
-                        onChanged: (val) {
-                          ref.read(createTaskProvider.notifier).state = ref
-                              .read(createTaskProvider.notifier)
-                              .state
-                              .copyWith(starttime: val.toString());
-                        },
-                      ),
+                      child: CustomDataPicker(
+                          onChanged: (val) {
+                        
+                            ref.read(createTaskProvider.notifier).state = ref
+                                .read(createTaskProvider.notifier)
+                                // ignore: invalid_use_of_protected_member
+                                .state
+                                .copyWith(starttime: val.toString());
+                          },
+                          startController: _startTimecontroller),
                     ),
                   ],
                 ),
@@ -158,18 +162,15 @@ class _TaskInputState extends ConsumerState<TaskInput> {
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 2 - 20,
-                      child: DateTimePicker(
-                        controller: _endtimecontroller,
-                        type: DateTimePickerType.time,
-                        // initialValue: "End Time",
-                        use24HourFormat: true,
-                        icon: const Icon(CupertinoIcons.clock),
-                        timeFieldWidth: 50,
-                        onChanged: (val) {
+                      child: CustomDataPicker(
+                        startController: _endtimecontroller,
+                        onChanged: (value) {
+                
                           ref.read(createTaskProvider.notifier).state = ref
                               .read(createTaskProvider.notifier)
+                              // ignore: invalid_use_of_protected_member
                               .state
-                              .copyWith(endtime: val.toString());
+                              .copyWith(endtime: value);
                         },
                       ),
                     ),
@@ -218,6 +219,7 @@ class _TaskInputState extends ConsumerState<TaskInput> {
               InkWell(
                 onTap: () {
                   ref.read(createTaskProvider.notifier).createUserTask();
+                  print(_startTimecontroller.text);
                   _titleController.text = "";
                   _noteController.text = "";
                   _datacontroller.text = "";

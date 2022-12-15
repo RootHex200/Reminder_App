@@ -1,10 +1,15 @@
 {
     "cSpell.words": [
         "colorindex",
+        "Cupertino",
+        "datacontroller",
         "endtime",
+        "formatindex",
+        "initiallization",
         "newvalue",
         "receiveport",
         "riverpod",
-        "starttime"
+        "starttime",
+        "Timecontroller"
     ]
 }
