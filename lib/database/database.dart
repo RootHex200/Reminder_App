@@ -29,11 +29,12 @@ Future<void> createTask(newvalue) async {
   isar.writeTxnSync<int>(() => isar.taskModels.putSync(newvalue));
 }
 
-Future<void> getTaskIsolate(SendPort sendPort) async {
+Future<void> getTaskIsolate(value) async {
   final service = IsarService();
   final isar = await service.db;
-  Stream stream = isar.taskModels.where().watch(fireImmediately: true);
+  Stream stream =
+      isar.taskModels.filter().dateEqualTo(value[1]).watch(fireImmediately: true);
   stream.listen((event) {
-    sendPort.send(event);
+    value[0].send(event);
   });
 }

@@ -48,6 +48,7 @@ class _CustomDataPickerState extends State<CustomDataPicker> {
                     },
                   )),
                   content: SizedBox(
+                    // height: (MediaQuery.of(context).size.height/3)-170,
                     height: 100,
                     child: Center(
                       child: Row(
@@ -60,11 +61,13 @@ class _CustomDataPickerState extends State<CustomDataPicker> {
                               children: [
                                 TextField(
                                   keyboardType: TextInputType.number,
+                                  
                                     controller: _hourController,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 25),
                                     decoration: InputDecoration(
+                                    
                                         contentPadding:
                                             const EdgeInsets.symmetric(
                                                 horizontal: 10, vertical: 10),

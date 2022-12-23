@@ -1,5 +1,4 @@
-import 'package:date_time_picker/date_time_picker.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:work_manager/controller/add_task_provider.dart';
@@ -104,24 +103,24 @@ class _TaskInputState extends ConsumerState<TaskInput> {
             height: 5,
           ),
 
-          //data
-          DateTimePicker(
+          TextField(
             controller: _datacontroller,
-            // initialValue:"Date",
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2100),
-            icon: const Icon(Icons.calendar_month),
-            cursorColor: Colors.black,
-            dateLabelText: 'Date',
-            onChanged: (val) {
-              // ignore: invalid_use_of_protected_member
-              ref.read(createTaskProvider.notifier).state = ref
-                  .read(createTaskProvider.notifier)
-                  // ignore: invalid_use_of_protected_member
-                  .state
-                  .copyWith(date: val.toString());
+            showCursor: false,
+            onTap: () {
+              getDateFormate(context);
             },
+            onChanged: (value) {},
+            decoration: InputDecoration(
+                focusColor: Colors.grey.withOpacity(0.4),
+                hoverColor: Colors.grey.withOpacity(0.4),
+                fillColor: Colors.grey.withOpacity(0.4),
+                suffixIcon: const Icon(Icons.calendar_month),
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10))),
           ),
+          //data
           //date
           const SizedBox(
             height: 10,
@@ -142,7 +141,6 @@ class _TaskInputState extends ConsumerState<TaskInput> {
                       width: MediaQuery.of(context).size.width / 2 - 20,
                       child: CustomDataPicker(
                           onChanged: (val) {
-                        
                             ref.read(createTaskProvider.notifier).state = ref
                                 .read(createTaskProvider.notifier)
                                 // ignore: invalid_use_of_protected_member
@@ -165,7 +163,6 @@ class _TaskInputState extends ConsumerState<TaskInput> {
                       child: CustomDataPicker(
                         startController: _endtimecontroller,
                         onChanged: (value) {
-                
                           ref.read(createTaskProvider.notifier).state = ref
                               .read(createTaskProvider.notifier)
                               // ignore: invalid_use_of_protected_member
@@ -244,5 +241,20 @@ class _TaskInputState extends ConsumerState<TaskInput> {
         ],
       ),
     );
+  }
+
+  getDateFormate(context) async {
+    DateTime? _pikcerTime = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2100));
+    _datacontroller.text = _pikcerTime.toString().split(" ")[0];
+
+                                ref.read(createTaskProvider.notifier).state = ref
+                                .read(createTaskProvider.notifier)
+                                // ignore: invalid_use_of_protected_member
+                                .state
+                                .copyWith(date: _datacontroller.text);
   }
 }

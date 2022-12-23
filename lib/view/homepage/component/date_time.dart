@@ -1,51 +1,22 @@
+import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:work_manager/controller/date_controller.dart';
 
-class DateTimeView extends StatelessWidget {
+class DateTimeView extends ConsumerWidget {
   const DateTimeView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    var date = "${DateTime.now()}".split(" ")[0];
-    print(date);
-    return Container(
-      margin: const EdgeInsets.only(left: 10),
-      width: MediaQuery.of(context).size.width,
-      height: 45,
-      child: ListView.builder(
-        itemCount: 10,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () {},
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: Container(
-                width: 40,
-                decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      "Tue",
-                      style: TextStyle(color: Colors.black54, fontSize: 12),
-                    ),
-                    Text(
-                      "12",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return DatePicker(
+      DateTime.now(),
+      initialSelectedDate: DateTime.now(),
+      selectionColor: Colors.black,
+      selectedTextColor: Colors.white,
+      onDateChange: (date) {
+        var result = date.toString().split(" ")[0];
+        ref.read(dateControllerProvider.state).state = result;
+      },
     );
   }
 }
