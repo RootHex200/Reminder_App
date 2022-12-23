@@ -26,14 +26,17 @@ class IsarService {
 Future<void> createTask(newvalue) async {
   final service = IsarService();
   final isar = await service.db;
-  isar.writeTxnSync<int>(() => isar.taskModels.putSync(newvalue));
+  var data = isar.writeTxnSync<int>(() => isar.taskModels.putSync(newvalue[1]));
+  newvalue[0].send(data);
 }
 
 Future<void> getTaskIsolate(value) async {
   final service = IsarService();
   final isar = await service.db;
-  Stream stream =
-      isar.taskModels.filter().dateEqualTo(value[1]).watch(fireImmediately: true);
+  Stream stream = isar.taskModels
+      .filter()
+      .dateEqualTo(value[1])
+      .watch(fireImmediately: true);
   stream.listen((event) {
     value[0].send(event);
   });

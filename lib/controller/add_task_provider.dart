@@ -41,6 +41,7 @@ class TaskNotifier extends StateNotifier<UserInput> {
   }
 
   void createUserTask() {
+    var receiveport = ReceivePort();
     if (state.checkIfAnyIsNull()) {
       var task = TaskModel(
           colors: "${color_list[state.colorindex]}",
@@ -49,16 +50,19 @@ class TaskNotifier extends StateNotifier<UserInput> {
           description: state.desc,
           title: state.title,
           startTime: state.starttime);
+      print("this is user info id:${task.id}");
       try {
-        Isolate.spawn(createTask, task);
-        var notification = NotificationModel(
-            id: notiID++,
-            title: state.title,
-            desc: state.desc,
-            date: state.date,
-            startTime: state.starttime);
-        NotificationClass().sendNotification(notification);
-        state = UserInput(
+        Isolate.spawn(createTask, [receiveport.sendPort, task]);
+       
+        receiveport.listen((data) {
+          var notification = NotificationModel(
+              id: data,
+              title: state.title,
+              desc: state.desc,
+              date: state.date,
+              startTime: state.starttime);
+          NotificationClass().sendNotification(notification);
+          state = UserInput(
             title: '',
             desc: '',
             date: '',
@@ -66,6 +70,8 @@ class TaskNotifier extends StateNotifier<UserInput> {
             starttime: '',
             colorindex: 0,
             endtime: '');
+        });
+
       } catch (e) {
         print("E$e");
       }

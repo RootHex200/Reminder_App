@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:work_manager/database/database.dart';
 
-final getTaskProvider = StreamProvider.family((ref,value) async* {
+final getTaskProvider = StreamProvider.autoDispose.family((ref,value) async* {
   var receiveport = ReceivePort();
   StreamController streamController = StreamController();
   try {

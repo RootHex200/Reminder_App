@@ -9,10 +9,12 @@ class DateTimeView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DatePicker(
+      
       DateTime.now(),
       initialSelectedDate: DateTime.now(),
       selectionColor: Colors.black,
       selectedTextColor: Colors.white,
+      height: 90,
       onDateChange: (date) {
         var result = date.toString().split(" ")[0];
         ref.read(dateControllerProvider.state).state = result;

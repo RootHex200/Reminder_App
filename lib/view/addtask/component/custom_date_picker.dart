@@ -48,13 +48,12 @@ class _CustomDataPickerState extends State<CustomDataPicker> {
                     },
                   )),
                   content: SizedBox(
-                    // height: (MediaQuery.of(context).size.height/3)-170,
                     height: 100,
                     child: Center(
                       child: Row(
                         children: [
                           SizedBox(
-                            height: 70,
+                            height: 90,
                             width: 70,
                             // color: Colors.grey.withOpacity(0.1),
                             child: Column(
@@ -94,7 +93,7 @@ class _CustomDataPickerState extends State<CustomDataPicker> {
                             ),
                           ),
                           SizedBox(
-                            height: 70,
+                            height: 90,
                             width: 70,
                             // color: Colors.grey.withOpacity(0.1),
                             child: Column(
@@ -141,7 +140,7 @@ class _CustomDataPickerState extends State<CustomDataPicker> {
                                           ? Colors.blue.withOpacity(0.1)
                                           : Colors.grey.withOpacity(0.1),
                                       margin: EdgeInsets.only(
-                                          bottom: 5, top: index == 0 ? 12 : 4),
+                                          bottom: 5, top: index == 0 ? 5 : 4),
                                       child: Text(
                                         format[index],
                                         style: TextStyle(
@@ -149,7 +148,7 @@ class _CustomDataPickerState extends State<CustomDataPicker> {
                                                 ? Colors.blue
                                                 : Colors.grey,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 20),
+                                            fontSize: 25),
                                       ),
                                     ),
                                   );

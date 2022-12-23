@@ -2,6 +2,6 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final dateControllerProvider = StateProvider((ref) {
+final dateControllerProvider = StateProvider.autoDispose((ref) {
   return "";
 });
