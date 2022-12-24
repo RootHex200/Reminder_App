@@ -177,7 +177,7 @@ class _CustomDataPickerState extends State<CustomDataPicker> {
                             onTap: () {
                               if (_hourController.text == "" &&
                                   _minuteController.text == "") {
-                                ref.read(errorProvider.state).state +=
+                                ref.read(errorProvider.state).state =
                                     "Invalid!!!";
                               } else {
                                 if (int.parse(_hourController.text) <= 12 &&
@@ -192,7 +192,7 @@ class _CustomDataPickerState extends State<CustomDataPicker> {
                                   _minuteController.text = "";
                                   // });
                                 } else {
-                                  ref.read(errorProvider.state).state +=
+                                  ref.read(errorProvider.state).state =
                                       "Invalid!!!";
                                 }
                               }
