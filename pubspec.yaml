@@ -44,7 +44,7 @@ dependencies:
   isar_flutter_libs: ^3.0.5
   flutter_local_notifications: ^12.0.4
   intl: ^0.17.0
-  fluttertoast: ^6.0.1
+  fluttertoast: ^8.1.2
   date_picker_timeline: ^1.2.3
 dev_dependencies:
   flutter_test:

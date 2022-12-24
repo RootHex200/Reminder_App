@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:work_manager/controller/date_controller.dart';
+import 'package:work_manager/controller/delete_update_task_provider.dart';
 import 'package:work_manager/controller/get_task_provider.dart';
 import 'package:work_manager/view/homepage/component/empty_task.dart';
 import 'package:work_manager/view/homepage/component/error.dart';
@@ -13,8 +15,9 @@ class TaskView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var date = DateTime.now().toString().split(' ')[0];
     final dateController = ref.watch(dateControllerProvider);
-    final task_Data = ref.watch(getTaskProvider(
-        dateController.isEmpty ? date : dateController));
+    final task_Data = ref
+        .watch(getTaskProvider(dateController.isEmpty ? date : dateController));
+
     return Expanded(
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -36,7 +39,16 @@ class TaskView extends ConsumerWidget {
                   primary: false,
                   itemBuilder: (context, index) {
                     return Dismissible(
-                        key: UniqueKey(), child: TaskItem(Data: data[index]));
+                        onDismissed: (value) {
+                          ref
+                              .read(delupdProvider.notifier)
+                              .deleteTask(data[index].id);
+                          Future.delayed(const Duration(microseconds: 100), () {
+                            Fluttertoast.showToast(msg: "Task Deleted");
+                          });
+                        },
+                        key: UniqueKey(),
+                        child: TaskItem(Data: data[index]));
                   }),
         ),
       ),

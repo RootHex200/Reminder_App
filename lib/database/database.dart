@@ -21,6 +21,14 @@ class IsarService {
     }
     return Future.value(Isar.getInstance());
   }
+
+  Future<void> deleteTask(taskID) async {
+    final isar = await db;
+    isar.writeTxn(() => isar.taskModels.delete(taskID));
+  }
+
+  //updateTask
+  Future<void> updateTask(value) async {}
 }
 
 Future<void> createTask(newvalue) async {
