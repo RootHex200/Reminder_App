@@ -166,14 +166,14 @@ class _CustomDataPickerState extends State<CustomDataPicker> {
                           Navigator.of(context).pop();
                         },
                         child: const Text(
-                          'Cencel',
+                          ' Cancel ',
                           style: TextStyle(color: Colors.blue, fontSize: 20),
                         )),
                     Consumer(
                       builder: (context, ref, child) {
                         final error = ref.watch(errorProvider);
                         final formatindex = ref.watch(formatProvider);
-                        return InkWell(
+                        return GestureDetector(
                             onTap: () {
                               if (_hourController.text == "" &&
                                   _minuteController.text == "") {
@@ -198,7 +198,7 @@ class _CustomDataPickerState extends State<CustomDataPicker> {
                               }
                             },
                             child: const Text(
-                              "OK",
+                              " Ok ",
                               style:
                                   TextStyle(color: Colors.blue, fontSize: 20),
                             ));

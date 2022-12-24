@@ -16,7 +16,7 @@ class ReminderTask extends StatelessWidget {
           style: TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
         ),
-        leading: InkWell(
+        leading: GestureDetector(
           onTap: () {
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const HomePage()));

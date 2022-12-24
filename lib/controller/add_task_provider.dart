@@ -4,6 +4,7 @@ import 'dart:isolate';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:work_manager/database/database.dart';
 import 'package:work_manager/model/notification_model.dart';
 import 'package:work_manager/model/task_model.dart';
@@ -53,7 +54,7 @@ class TaskNotifier extends StateNotifier<UserInput> {
       print("this is user info id:${task.id}");
       try {
         Isolate.spawn(createTask, [receiveport.sendPort, task]);
-       
+
         receiveport.listen((data) {
           var notification = NotificationModel(
               id: data,
@@ -62,21 +63,21 @@ class TaskNotifier extends StateNotifier<UserInput> {
               date: state.date,
               startTime: state.starttime);
           NotificationClass().sendNotification(notification);
+          Fluttertoast.showToast(msg: "New Task Added Successfully");
           state = UserInput(
-            title: '',
-            desc: '',
-            date: '',
-            color: '',
-            starttime: '',
-            colorindex: 0,
-            endtime: '');
+              title: '',
+              desc: '',
+              date: '',
+              color: '',
+              starttime: '',
+              colorindex: 0,
+              endtime: '');
         });
-
       } catch (e) {
         print("E$e");
       }
     } else {
-      debugPrint("Any object is emtpy");
+      Fluttertoast.showToast(msg: "Input Filed is Empty");
     }
   }
 }

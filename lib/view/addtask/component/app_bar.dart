@@ -12,7 +12,7 @@ class AddTaskAppBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            InkWell(
+            GestureDetector(
               onTap: () {
                 Navigator.pushAndRemoveUntil(
                     context, MaterialPageRoute(builder: (context)=>const HomePage()), (route) => false);

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:work_manager/controller/add_task_provider.dart';
@@ -40,7 +39,7 @@ class _TaskInputState extends ConsumerState<TaskInput> {
 
   @override
   Widget build(BuildContext context) {
-    final add_task = ref.watch(createTaskProvider);
+    final addTask = ref.watch(createTaskProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
@@ -191,7 +190,7 @@ class _TaskInputState extends ConsumerState<TaskInput> {
               Row(
                 children: List.generate(
                     3,
-                    (index) => InkWell(
+                    (index) => GestureDetector(
                           onTap: () {
                             // ignore: invalid_use_of_protected_member
                             ref.read(createTaskProvider.notifier).state = ref
@@ -207,13 +206,18 @@ class _TaskInputState extends ConsumerState<TaskInput> {
                             margin: const EdgeInsets.only(right: 5),
                             height: 20,
                             width: 20,
-                            child: add_task.colorindex == index
-                                ? const Icon(Icons.check_circle_outline)
+                            child: addTask.colorindex == index
+                                ? const Center(
+                                    child: Icon(
+                                    Icons.check,
+                                    color: Colors.black,
+                                    size: 20,
+                                  ))
                                 : const Text(""),
                           ),
                         )),
               ),
-              InkWell(
+              GestureDetector(
                 onTap: () {
                   ref.read(createTaskProvider.notifier).createUserTask();
                   print(_startTimecontroller.text);
@@ -244,17 +248,17 @@ class _TaskInputState extends ConsumerState<TaskInput> {
   }
 
   getDateFormate(context) async {
-    DateTime? _pikcerTime = await showDatePicker(
+    DateTime? pikcerTime = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(2000),
         lastDate: DateTime(2100));
-    _datacontroller.text = _pikcerTime.toString().split(" ")[0];
+    _datacontroller.text = pikcerTime.toString().split(" ")[0];
 
-                                ref.read(createTaskProvider.notifier).state = ref
-                                .read(createTaskProvider.notifier)
-                                // ignore: invalid_use_of_protected_member
-                                .state
-                                .copyWith(date: _datacontroller.text);
+    ref.read(createTaskProvider.notifier).state = ref
+        .read(createTaskProvider.notifier)
+        // ignore: invalid_use_of_protected_member
+        .state
+        .copyWith(date: _datacontroller.text);
   }
 }
