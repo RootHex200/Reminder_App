@@ -1,18 +1,17 @@
-import 'dart:ffi';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:work_manager/model/notification_model.dart';
 import 'package:work_manager/model/task_model.dart';
-import 'package:work_manager/service/notification_service.dart';
 
 class TaskItem extends StatelessWidget {
+  // ignore: non_constant_identifier_names
   final TaskModel Data;
+  // ignore: non_constant_identifier_names
   const TaskItem({super.key, required this.Data});
 
   @override
   Widget build(BuildContext context) {
     final color = Data.colors.split(" ").last.split(")")[0].split("(").last;
+    // ignore: non_constant_identifier_names
     final main_color = color == "0xfff44336"
         ? 0xfff44336
         : color == "0xffffeb3b"
@@ -20,7 +19,6 @@ class TaskItem extends StatelessWidget {
             : 0xff2196f3;
     return GestureDetector(
       onLongPress: () {
-        print('I am long press');
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 20),

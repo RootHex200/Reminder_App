@@ -15,6 +15,7 @@ class TaskView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var date = DateTime.now().toString().split(' ')[0];
     final dateController = ref.watch(dateControllerProvider);
+    // ignore: non_constant_identifier_names
     final task_Data = ref
         .watch(getTaskProvider(dateController.isEmpty ? date : dateController));
 

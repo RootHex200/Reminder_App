@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+
 import 'package:isar/isar.dart';
 
 part 'task_model.g.dart';

@@ -29,10 +29,8 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         onPressed: () {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const AddTask()),
-              (route) => false);
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const AddTask()));
         },
         child: const Icon(
           Icons.add,

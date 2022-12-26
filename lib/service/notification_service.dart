@@ -31,6 +31,7 @@ class NotificationClass {
         df.parse('${notificationModel.date} ${notificationModel.startTime}');
     var latest = DateFormat('yyyy-MM-dd HH:mm').format(dt);
 
+    // ignore: deprecated_member_use
     flutterLocalNotificationsPlugin.schedule(
         notificationModel.id,
         notificationModel.title,
@@ -39,6 +40,7 @@ class NotificationClass {
         notificationDetails);
   }
 
+  // ignore: non_constant_identifier_names
   void CencelNotification(id) async {
     flutterLocalNotificationsPlugin.cancel(id);
   }

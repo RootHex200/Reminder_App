@@ -33,7 +33,6 @@ class _TaskInputState extends ConsumerState<TaskInput> {
     _datacontroller.dispose();
     _startTimecontroller.dispose();
     _endtimecontroller.dispose();
-    print("ondispose call");
     super.dispose();
   }
 
@@ -140,6 +139,7 @@ class _TaskInputState extends ConsumerState<TaskInput> {
                       width: MediaQuery.of(context).size.width / 2 - 20,
                       child: CustomDataPicker(
                           onChanged: (val) {
+                            // ignore: invalid_use_of_protected_member
                             ref.read(createTaskProvider.notifier).state = ref
                                 .read(createTaskProvider.notifier)
                                 // ignore: invalid_use_of_protected_member
@@ -162,6 +162,7 @@ class _TaskInputState extends ConsumerState<TaskInput> {
                       child: CustomDataPicker(
                         startController: _endtimecontroller,
                         onChanged: (value) {
+                          // ignore: invalid_use_of_protected_member
                           ref.read(createTaskProvider.notifier).state = ref
                               .read(createTaskProvider.notifier)
                               // ignore: invalid_use_of_protected_member
@@ -220,7 +221,6 @@ class _TaskInputState extends ConsumerState<TaskInput> {
               GestureDetector(
                 onTap: () {
                   ref.read(createTaskProvider.notifier).createUserTask();
-                  print(_startTimecontroller.text);
                   _titleController.text = "";
                   _noteController.text = "";
                   _datacontroller.text = "";
@@ -255,6 +255,7 @@ class _TaskInputState extends ConsumerState<TaskInput> {
         lastDate: DateTime(2100));
     _datacontroller.text = pikcerTime.toString().split(" ")[0];
 
+    // ignore: invalid_use_of_protected_member
     ref.read(createTaskProvider.notifier).state = ref
         .read(createTaskProvider.notifier)
         // ignore: invalid_use_of_protected_member

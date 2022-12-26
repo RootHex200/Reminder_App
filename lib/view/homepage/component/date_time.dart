@@ -17,6 +17,7 @@ class DateTimeView extends ConsumerWidget {
       height: 90,
       onDateChange: (date) {
         var result = date.toString().split(" ")[0];
+        // ignore: deprecated_member_use
         ref.read(dateControllerProvider.state).state = result;
       },
     );

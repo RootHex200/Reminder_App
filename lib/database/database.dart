@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:isolate';
-
-import 'package:flutter/cupertino.dart';
 import 'package:isar/isar.dart';
 
 import 'package:work_manager/model/task_model.dart';

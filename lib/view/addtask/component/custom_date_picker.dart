@@ -23,7 +23,6 @@ class _CustomDataPickerState extends State<CustomDataPicker> {
   void dispose() {
     _hourController.dispose();
     _minuteController.dispose();
-    print("didponse called");
     super.dispose();
   }
 
@@ -132,6 +131,7 @@ class _CustomDataPickerState extends State<CustomDataPicker> {
                                   final formatindex = ref.watch(formatProvider);
                                   return GestureDetector(
                                     onTap: () {
+                                      // ignore: deprecated_member_use
                                       ref.watch(formatProvider.state).state =
                                           index;
                                     },
@@ -171,12 +171,12 @@ class _CustomDataPickerState extends State<CustomDataPicker> {
                         )),
                     Consumer(
                       builder: (context, ref, child) {
-                        final error = ref.watch(errorProvider);
                         final formatindex = ref.watch(formatProvider);
                         return GestureDetector(
                             onTap: () {
                               if (_hourController.text == "" &&
                                   _minuteController.text == "") {
+                                // ignore: deprecated_member_use
                                 ref.read(errorProvider.state).state =
                                     "Invalid!!!";
                               } else {
@@ -192,6 +192,7 @@ class _CustomDataPickerState extends State<CustomDataPicker> {
                                   _minuteController.text = "";
                                   // });
                                 } else {
+                                  // ignore: deprecated_member_use
                                   ref.read(errorProvider.state).state =
                                       "Invalid!!!";
                                 }

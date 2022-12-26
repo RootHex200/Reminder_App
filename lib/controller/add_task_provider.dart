@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:isolate';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:work_manager/database/database.dart';
@@ -27,7 +25,6 @@ class TaskNotifier extends StateNotifier<UserInput> {
             colorindex: 0,
             endtime: ''));
   Timer? _debounce;
-  int notiID = 0;
   onSearchChanged(value, type) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {
@@ -36,7 +33,6 @@ class TaskNotifier extends StateNotifier<UserInput> {
       }
       if (type == 'title') {
         state = state.copyWith(title: value.toString());
-        print(value);
       }
     });
   }
@@ -51,7 +47,6 @@ class TaskNotifier extends StateNotifier<UserInput> {
           description: state.desc,
           title: state.title,
           startTime: state.starttime);
-      print("this is user info id:${task.id}");
       try {
         Isolate.spawn(createTask, [receiveport.sendPort, task]);
 
@@ -73,8 +68,9 @@ class TaskNotifier extends StateNotifier<UserInput> {
               colorindex: 0,
               endtime: '');
         });
+      // ignore: empty_catches
       } catch (e) {
-        print("E$e");
+        
       }
     } else {
       Fluttertoast.showToast(msg: "Input Filed is Empty");
