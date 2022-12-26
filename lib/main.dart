@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:work_manager/service/notification_service.dart';
+import 'package:work_manager/service/all_service_initilized.dart';
 import 'package:work_manager/view/homepage/home_page.dart';
 
-
-
-
-void main()async {
-  WidgetsFlutterBinding.ensureInitialized();
-  NotificationClass().initiallizationPlatform();
-  runApp( const ProviderScope(child: MyApp()));
+void main() {
+  initlization();
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

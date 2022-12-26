@@ -47,3 +47,17 @@ Future<void> getTaskIsolate(value) async {
     value[0].send(event);
   });
 }
+
+Future<void> deleteDataFromBG(value) async {
+  final service = IsarService();
+  final isar = await service.db;
+  Stream stream =
+      isar.taskModels.filter().dateEqualTo(value).watch(fireImmediately: true);
+  stream.listen((event) {
+    if(event.length!=0){
+    for (int i = 0; i < event.length; i++) {
+      isar.writeTxnSync(() => isar.taskModels.deleteSync(event[i].id));
+    }
+    }
+  });
+}
