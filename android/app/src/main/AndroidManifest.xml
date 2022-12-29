@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.work_manager">
    <application
-        android:label="work_manager"
+        android:label="Reminder"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
