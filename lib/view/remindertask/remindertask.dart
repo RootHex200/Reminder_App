@@ -89,7 +89,7 @@ class ReminderTask extends StatelessWidget {
                         height: 7,
                       ),
                       Text(
-                        payload.toString().split(" ")[0],
+                        payload.toString().split("|")[0],
                         style:
                             const TextStyle(color: Colors.white, fontSize: 14),
                       ),
@@ -117,7 +117,7 @@ class ReminderTask extends StatelessWidget {
                         height: 7,
                       ),
                       Text(
-                        payload.toString().split(" ")[1],
+                        payload.toString().split("|")[1],
                         style:
                             const TextStyle(color: Colors.white, fontSize: 14),
                       ),
@@ -145,7 +145,7 @@ class ReminderTask extends StatelessWidget {
                         height: 7,
                       ),
                       Text(
-                        payload.toString().split(" ")[2],
+                        payload.toString().split("|")[2],
                         style:
                             const TextStyle(color: Colors.white, fontSize: 14),
                       )

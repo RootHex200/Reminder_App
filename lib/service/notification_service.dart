@@ -65,7 +65,7 @@ class NotificationClass {
         notificationModel.desc,
         DateTime.parse(latest),
         notificationDetails,
-        payload: "${notificationModel.title} ${notificationModel.desc} ${notificationModel.startTime}");
+        payload: "${notificationModel.title}|${notificationModel.desc}|${notificationModel.startTime}");
   }
 
   // ignore: non_constant_identifier_names
