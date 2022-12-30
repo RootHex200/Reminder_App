@@ -42,7 +42,7 @@ dependencies:
   build_runner: ^2.3.2
   path_provider: ^2.0.11
   isar_flutter_libs: ^3.0.5
-  flutter_local_notifications: ^12.0.4
+  flutter_local_notifications: ^13.0.0
   intl: ^0.17.0
   fluttertoast: ^8.1.2
   date_picker_timeline: ^1.2.3

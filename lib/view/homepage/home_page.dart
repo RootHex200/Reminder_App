@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:work_manager/database/database.dart';
+import 'package:work_manager/service/notification_service.dart';
 import 'package:work_manager/view/addtask/add_task.dart';
 import 'package:work_manager/view/homepage/component/appbar.dart';
 import 'package:work_manager/view/homepage/component/date_time.dart';
@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    IsarService();
+    NotificationClass().initiallizationPlatform(context);
     return Scaffold(
       body: Column(
         mainAxisSize: MainAxisSize.min,

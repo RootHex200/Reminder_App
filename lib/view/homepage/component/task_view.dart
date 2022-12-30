@@ -40,6 +40,10 @@ class TaskView extends ConsumerWidget {
                   primary: false,
                   itemBuilder: (context, index) {
                     return Dismissible(
+                      background: Container(
+                        color: Colors.red,
+                        child: const Icon(Icons.delete),
+                      ),
                         onDismissed: (value) {
                           ref
                               .read(delupdProvider.notifier)

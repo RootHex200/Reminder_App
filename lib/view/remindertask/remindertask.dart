@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:work_manager/view/homepage/home_page.dart';
 
 class ReminderTask extends StatelessWidget {
-  const ReminderTask({super.key});
+  final String payload;
+  const ReminderTask({super.key, required this.payload});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +19,10 @@ class ReminderTask extends StatelessWidget {
         ),
         leading: GestureDetector(
           onTap: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const HomePage()));
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+                (route) => false);
           },
           child: const Icon(
             Icons.arrow_back_ios,
@@ -32,11 +35,11 @@ class ReminderTask extends StatelessWidget {
         padding: const EdgeInsets.only(top: 25),
         child: SingleChildScrollView(
           child: Column(
-             mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.min,
             children: [
               const Center(
                 child: Text(
-                  "Hello,Sabitur",
+                  "Hello",
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
@@ -53,7 +56,7 @@ class ReminderTask extends StatelessWidget {
                 height: 20,
               ),
               Container(
-                height: (MediaQuery.of(context).size.height / 2) + 50,
+                height: 300,
                 width: MediaQuery.of(context).size.width -
                     (MediaQuery.of(context).size.width / 2) +
                     70,
@@ -63,7 +66,7 @@ class ReminderTask extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
                   child: Column(
-                     mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
@@ -78,16 +81,17 @@ class ReminderTask extends StatelessWidget {
                           ),
                           Text(
                             "Title",
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                            style: TextStyle(color: Colors.white, fontSize: 17),
                           )
                         ],
                       ),
                       const SizedBox(
                         height: 7,
                       ),
-                      const Text(
-                        "YOur title",
-                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      Text(
+                        payload.toString().split(" ")[0],
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 14),
                       ),
                       const SizedBox(
                         height: 7,
@@ -105,16 +109,17 @@ class ReminderTask extends StatelessWidget {
                           ),
                           Text(
                             "Description",
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                            style: TextStyle(color: Colors.white, fontSize: 17),
                           )
                         ],
                       ),
                       const SizedBox(
                         height: 7,
                       ),
-                      const Text(
-                        "YOur Descripting kadjfkajf lorem ipus hello i am sabitur",
-                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      Text(
+                        payload.toString().split(" ")[1],
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 14),
                       ),
                       const SizedBox(
                         height: 7,
@@ -132,16 +137,17 @@ class ReminderTask extends StatelessWidget {
                           ),
                           Text(
                             "Date",
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                            style: TextStyle(color: Colors.white, fontSize: 17),
                           )
                         ],
                       ),
                       const SizedBox(
                         height: 7,
                       ),
-                      const Text(
-                        "9:07",
-                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      Text(
+                        payload.toString().split(" ")[2],
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 14),
                       )
                     ],
                   ),

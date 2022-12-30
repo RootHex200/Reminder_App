@@ -1,20 +1,47 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:work_manager/model/notification_model.dart';
+import 'package:work_manager/view/remindertask/remindertask.dart';
 
 class NotificationClass {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
   final AndroidInitializationSettings initializationSettingsAndroid =
-      const AndroidInitializationSettings("logo");
-  void initiallizationPlatform() async {
+      const AndroidInitializationSettings('logo');
+
+  void initiallizationPlatform(context) async {
+
     final InitializationSettings initializationSettings =
         InitializationSettings(
       android: initializationSettingsAndroid,
     );
 
-    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onDidReceiveNotificationResponse: (details) {
+      if (details.payload != null) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    ReminderTask(payload: details.payload.toString())),
+            (route) => false);
+      }
+    }
+        // onDidReceiveBackgroundNotificationResponse: (details) {
+        //   if (details.payload != null) {
+        //     String data = details.payload ?? "Name";
+        //     var result = "$data";
+        //     Navigator.pushAndRemoveUntil(
+        //         context,
+        //         MaterialPageRoute(
+        //             builder: (context) =>
+        //                 const ReminderTask(payload: result)),
+        //         (route) => false);
+        //   }
+        // },
+        );
   }
 
   void sendNotification(NotificationModel notificationModel) async {
@@ -37,7 +64,8 @@ class NotificationClass {
         notificationModel.title,
         notificationModel.desc,
         DateTime.parse(latest),
-        notificationDetails);
+        notificationDetails,
+        payload: "${notificationModel.title} ${notificationModel.desc} ${notificationModel.startTime}");
   }
 
   // ignore: non_constant_identifier_names
