@@ -9,7 +9,7 @@ class NotificationClass {
       FlutterLocalNotificationsPlugin();
 
   final AndroidInitializationSettings initializationSettingsAndroid =
-      const AndroidInitializationSettings('logo');
+      const AndroidInitializationSettings('mipmap/ic_launcher');
 
   void initiallizationPlatform(context) async {
 
