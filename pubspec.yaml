@@ -46,6 +46,8 @@ dependencies:
   intl: ^0.17.0
   fluttertoast: ^8.1.2
   date_picker_timeline: ^1.2.3
+  mongo_dart: ^0.8.2
+  shared_preferences: ^2.0.16
 dev_dependencies:
   flutter_test:
     sdk: flutter

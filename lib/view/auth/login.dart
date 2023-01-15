@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mongo_dart/mongo_dart.dart';
+import 'package:work_manager/controller/auth_controller.dart';
+import 'package:work_manager/model/auth_model.dart';
 
-class Login extends StatefulWidget {
+class Login extends ConsumerStatefulWidget {
   const Login({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  ConsumerState<Login> createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends ConsumerState<Login> {
   late TextEditingController emialcontroller;
   late TextEditingController passwordcontroller;
+  // ignore: non_constant_identifier_names
   final form_key = GlobalKey<FormState>();
   @override
   void initState() {
@@ -48,7 +53,6 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SizedBox(height: 100),
-                        // this is text creat account
                         const Text(
                           "SIGN IN",
                           style: TextStyle(
@@ -148,10 +152,13 @@ class _LoginState extends State<Login> {
                           MaterialStateProperty.all(const Color(0xFF282829))),
                   onPressed: () {
                     if (form_key.currentState!.validate()) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Login()));
+                      var data = AuthModel(
+                          id: ObjectId(),
+                          email: emialcontroller.text.toString(),
+                          password: passwordcontroller.text.toString());
+                      ref
+                          .read(authProvider.notifier)
+                          .loginController(data, context);
                     }
                   },
                   child: const Text("  Sign in  "))

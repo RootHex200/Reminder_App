@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:work_manager/util/const.dart';
+import 'package:work_manager/view/auth/signup.dart';
 import 'package:work_manager/view/homepage/home_page.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -6,8 +8,17 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 1), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const HomePage()));
+    Future.delayed(const Duration(seconds: 1), () async {
+      final checkUid = await prefs;
+      final data = checkUid.getString("uid");
+      if (data == null) {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const Signup()));
+        return;
+      }
+       // ignore: use_build_context_synchronously
+       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const HomePage()));
     });
 
     return Scaffold(
@@ -25,8 +36,7 @@ class SplashScreen extends StatelessWidget {
               child: const Image(
                   height: 100,
                   width: 100,
-                  image:
-                      AssetImage("assets/images/YR.png")),
+                  image: AssetImage("assets/images/YR.png")),
             ),
             Expanded(child: Container()),
             Column(
