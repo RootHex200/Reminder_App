@@ -10,7 +10,7 @@
 
 
 
-## **Task Manager**
+## **Reminder**
   <p align="center">
     Reminder is a android app that help to Reminder your activities and<br>easily help to keep updated your Daily activities 
     <br />
